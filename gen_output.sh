@@ -8,6 +8,7 @@ CLASS=01
 SECTION=10660          # MyCSULB class number
 NAME=Giacalone_Anthony
 TITLE="CECS ${COURSE} · Section ${CLASS} · Summer 2026 — Syllabus"
+SERIAL=$(awk -F': ' '/^serial:/{print $2; exit}' README.md)   # visible-but-unexplained build hash
 
 OUT_HTML="cecs-${COURSE}-${TYEAR}-${CLASS}-syllabus-${SECTION}.html"
 OUT_PDF="CECS ${COURSE}_${CLASS}_${TYEAR}_${NAME}.pdf"
@@ -23,6 +24,7 @@ pandoc README.md \
   --css syllabus.css \
   --metadata title="${TITLE}" \
   --metadata lang=en \
+  --include-after-body=<(printf '<footer class="serial">Serial · %s</footer>' "${SERIAL:-—}") \
   -o "${OUT_HTML}"
 echo "→ ${OUT_HTML}"
 

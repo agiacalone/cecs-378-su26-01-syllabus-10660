@@ -3,8 +3,9 @@
 
 .idea/
 
-# Generated syllabus build artifacts (from gen_output.sh) — source is README.md + syllabus.css
+# Generated syllabus build artifacts (from gen_output.sh / gen_canvas.py) — source is README.md + syllabus.css
 cecs-*-syllabus-*.html
+syllabus_canvas.html
 CECS *.pdf
 
 ## Core latex/pdflatex auxiliary files:

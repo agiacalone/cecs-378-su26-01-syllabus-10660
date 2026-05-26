@@ -263,6 +263,20 @@ code {
   border-radius: 3px;
 }
 
+/* ── Serial footer (visible-but-unexplained build hash) ───── */
+footer.serial {
+  max-width: 50rem;
+  margin: 3rem auto 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--hair);
+  font-family: 'Spline Sans Mono', ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+}
+
 /* ── Print: paper-true, clean, accent preserved ───────────── */
 @media print {
   @page { size: letter; margin: 0.7in 0.75in; }
