@@ -1,12 +1,40 @@
 #!/bin/bash
+set -euo pipefail
 
-# Define the output file names
+# ── Term variables (edit each term; keep in sync with README.md) ──
 COURSE=378
-TYEAR=SP26
+TYEAR=SU26
 CLASS=01
-SECTION=4624
+SECTION=10660          # MyCSULB class number
 NAME=Giacalone_Anthony
+TITLE="CECS ${COURSE} · Section ${CLASS} · Summer 2026 — Syllabus"
 
-# Generate output files
-pandoc README.md -o cecs-$COURSE-$TYEAR-$CLASS-syllabus-$SECTION.html --from markdown
-pandoc README.md --template eisvogel -V linkcolor=blue -V header-includes:'\usepackage[export]{adjustbox} \let\includegraphicsbak\includegraphics \renewcommand*{\includegraphics}[2][]{\includegraphicsbak[frame,#1]{#2}}' -o CECS\ $COURSE\_$CLASS\_$TYEAR\_$NAME.pdf
+OUT_HTML="cecs-${COURSE}-${TYEAR}-${CLASS}-syllabus-${SECTION}.html"
+OUT_PDF="CECS ${COURSE}_${CLASS}_${TYEAR}_${NAME}.pdf"
+
+# ── Primary output: styled, self-contained HTML (Swiss/grid theme) ──
+# --embed-resources inlines syllabus.css so the file is portable;
+# the @media print block in syllabus.css drives a clean PDF.
+pandoc README.md \
+  --from gfm \
+  --to html5 \
+  --standalone \
+  --embed-resources \
+  --css syllabus.css \
+  --metadata title="${TITLE}" \
+  --metadata lang=en \
+  -o "${OUT_HTML}"
+echo "→ ${OUT_HTML}"
+
+# ── PDF for Canvas distribution ──
+# Easiest: open the HTML in a browser and Print → Save as PDF
+#   (uses the @media print rules in syllabus.css).
+# Or one-shot, if a renderer is installed:
+if command -v weasyprint >/dev/null 2>&1; then
+  weasyprint "${OUT_HTML}" "${OUT_PDF}" && echo "→ ${OUT_PDF} (weasyprint)"
+elif command -v chromium >/dev/null 2>&1; then
+  chromium --headless --no-pdf-header-footer --print-to-pdf="${OUT_PDF}" "${OUT_HTML}" \
+    && echo "→ ${OUT_PDF} (chromium)"
+else
+  echo "  (no weasyprint/chromium found — print ${OUT_HTML} from a browser for the PDF)"
+fi
