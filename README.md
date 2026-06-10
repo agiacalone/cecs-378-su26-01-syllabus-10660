@@ -1,5 +1,5 @@
 ---
-serial: F66CDFA2
+serial: 736AFD06
 ---
 
 <!--
@@ -178,3 +178,5 @@ Students with a disability or medical restriction requesting a classroom accommo
 Any student facing academic or personal challenges due to difficulty affording groceries/food and/or lacking a safe and stable living environment is urged to contact the **CSULB Student Emergency Intervention & Wellness Program**. [Resources are listed here](http://www.csulb.edu/basicneeds). Students can also email supportingstudents@csulb.edu or call 562-985-2038. If comfortable, students may reach out to the professor, who may be able to identify additional resources.
 
 </details>
+
+*Syllabus version 736AFD06 · 2026-06-09*
